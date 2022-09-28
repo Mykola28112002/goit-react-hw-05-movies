@@ -1,7 +1,7 @@
 // /movies/get-movie-reviews 
 
 
-export const Reviews = () => {
+export const Reviews = ({reviews}) => {
   return (
     <div>
     </div>
