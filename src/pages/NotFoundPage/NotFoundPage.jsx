@@ -3,7 +3,7 @@
 export const NotFoundPage = () => {
   return (
     <div>
-      elkrnmgklmGK;MSLG
+      <h2>Not found</h2> 
     </div>
   );
 };
