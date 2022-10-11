@@ -4,6 +4,8 @@ import { Ul,Img,Li,Title } from "./Cast.styled";
 import { useParams } from 'react-router-dom';
 import { getMovieCast } from '../../apiFilm';
 import { useState, useEffect } from 'react';
+import { PropTypes } from 'prop-types';
+
 
 const Cast = () => {
   const { id } = useParams();
@@ -35,3 +37,10 @@ const Cast = () => {
 };
 
 export default Cast;
+
+Cast.propTypes = {
+  id: PropTypes.string,
+  profile_path: PropTypes.string,
+  name: PropTypes.string,
+
+};

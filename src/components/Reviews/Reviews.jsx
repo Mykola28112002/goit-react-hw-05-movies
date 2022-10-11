@@ -3,6 +3,8 @@
 import { useParams } from 'react-router-dom';
 import { getMovieRewiews } from '../../apiFilm';
 import { useState, useEffect } from 'react';
+import { PropTypes } from 'prop-types';
+
 
 export const Reviews = () => {
   
@@ -24,12 +26,11 @@ export const Reviews = () => {
     }
     getFilm();
   }, [id]);
-  console.log(rewiews)
   if (rewiews.length !== undefined) {
     
     return (
       <div>
-        { rewiews.map(({author,content}) => <div>
+        { rewiews.map(({author,content}) => <div key={author}>
             <h3>{author}</h3>
             <p>{content }</p>
           </div>) 
@@ -44,3 +45,8 @@ export const Reviews = () => {
 };
 
 export default Reviews;
+
+Reviews.propTypes = {
+  author: PropTypes.string,
+  content: PropTypes.string
+};

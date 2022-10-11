@@ -2,40 +2,51 @@
 import { getSearchedMovies } from '../../apiFilm';
 import { Formik, } from 'formik';
 import { Search,SearchForm,SearchField,Button } from './Movies.styled';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Home from '../Home/Home';
+import { useSearchParams } from "react-router-dom";
+
 
 
 function Movies() {
-  const [name, setName] = useState('');
+  const name = '';
+  const [searchParams, setSearchParams] = useSearchParams();
   const [movies, setMovies] = useState('');
+  const filterParams = searchParams.get('filter') ?? '';
+  
   
   const handelSabmit = (values, { resetForm }) => { 
-      if (values.name !== '') { 
-          setName(values.name)
+    const value = values.name 
+    if (value !== '') { 
+        setSearchParams({ filter: value})
         resetForm();
-      async function getMovies() {
-        try {
-          const data = await getSearchedMovies(name);
-          const trendieMovies = data.results;
-          setMovies(trendieMovies);
-          return;
-        } catch (error) {
-          alert('Not found')
-          console.log(error);
-        }
-      }
-      getMovies();
       }
   };
+  useEffect(() => {
+    if (filterParams !== '') {
+      async function getMovies() {
+      try {
+        const data = await getSearchedMovies(filterParams);
+        const trendieMovies = data.results;
+        setMovies(trendieMovies);
+        return;
+      } catch (error) {
+        alert('Not found')
+        console.log(error);
+      }
+    }
+    getMovies();
+    }
+  },[filterParams]);
+   
   
   return (<div>
-      <Search className="searchbar">
+      <Search>
         <Formik
             initialValues={{name}}
             onSubmit={handelSabmit}>
             <SearchForm className="form" >
-                <Button type="submit" className="button">
+                <Button type="submit">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" 
                         viewBox="0 0 16 16">
                         <path
